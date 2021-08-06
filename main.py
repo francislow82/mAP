@@ -650,7 +650,7 @@ with open(output_files_path + "/output.txt", 'w') as output_file:
                 cv2.imshow("Animation", img)
                 cv2.waitKey(20) # show for 20 ms
                 # save image to output
-                output_img_path = output_files_path + "/images/detections_one_by_one/" + class_name + "_detection" + str(idx) + ".jpg"
+                output_img_path = output_files_path + "/images/detections_one_by_one/" + sanitize_class_name(class_name) + "_detection" + str(idx) + ".jpg"
                 cv2.imwrite(output_img_path, img)
                 # save the image with all the objects drawn to it
                 cv2.imwrite(img_cumulative_path, img_cumulative)
@@ -720,7 +720,7 @@ with open(output_files_path + "/output.txt", 'w') as output_file:
             # Alternative option -> normal display
             #plt.show()
             # save the plot
-            fig.savefig(output_files_path + "/classes/" + class_name + ".png")
+            fig.savefig(output_files_path + "/classes/" + sanitize_class_name(class_name) + ".png")
             plt.cla() # clear axes for next plot
 
     if show_animation:
