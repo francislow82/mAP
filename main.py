@@ -139,6 +139,9 @@ def is_float_between_0_and_1(value):
     except ValueError:
         return False
 
+def sanitize_class_name(class_name:str) -> str:
+    return class_name.replace('/', '__')
+
 """
  Calculate the AP given the recall and precision array
     1st) We compute a version of the measured precision/recall curve with
@@ -490,7 +493,7 @@ for class_index, class_name in enumerate(gt_classes):
                 #print(bounding_boxes)
     # sort detection-results by decreasing confidence
     bounding_boxes.sort(key=lambda x:float(x['confidence']), reverse=True)
-    with open(TEMP_FILES_PATH + "/" + class_name + "_dr.json", 'w') as outfile:
+    with open(TEMP_FILES_PATH + "/" + sanitize_class_name(class_name) + "_dr.json", 'w') as outfile:
         json.dump(bounding_boxes, outfile)
 
 """
@@ -508,7 +511,7 @@ with open(output_files_path + "/output.txt", 'w') as output_file:
         """
          Load detection-results of that class
         """
-        dr_file = TEMP_FILES_PATH + "/" + class_name + "_dr.json"
+        dr_file = TEMP_FILES_PATH + "/" + sanitize_class_name(class_name) + "_dr.json"
         dr_data = json.load(open(dr_file))
 
         """
